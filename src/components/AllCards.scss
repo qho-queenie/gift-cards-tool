@@ -10,14 +10,13 @@
     display: inline-block;
     flex-direction: row;
     vertical-align: top;
-    width: 30%;
+    width: 20%;
 
     &__cardColumn {
       display: flex;
-      justify-content: flex-start;
-      align-items: flex-start;
-      flex-direction: column;
-      gap: 10px 20px;
+      justify-content: space-between;
+      flex-basis: auto;
+      flex-wrap: wrap;
     }
   }
 }
