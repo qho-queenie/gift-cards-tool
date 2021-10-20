@@ -6,27 +6,33 @@ import AddNewCardModal from './AddNewCardModal'
 import './AllCards.scss';
 
 const AllCards = () => {
-  const [allCardsNames, setAllCardsNames] = useState(['costcoCards', 'masterCards', 'BBBCards', 'containerStoreCards']);
+  const [allCardsNames, setAllCardsNames] = useState(['costcoCards', 'visaCards', 'BBBCards', 'containerStoreCards']);
 
 
   const [costcoCards, setCostCoCards] = useState([
-    { store: 'Costco', cardNumber: 6179923830148194, remainBalance: 100.28 }
+    { store: 'costcoCards', cardNumber: 6179923830148194, remainBalance: 100.28 }
   ]);
 
-  const [masterCards, setVisaCards] = useState([
-    { store: 'masterCard', cardNumber: 5113320254120251, expDate: '01/30', cvc: '666' }
+  const [visaCards, setVisaCards] = useState([
+    { store: 'visaCards', cardNumber: 5113320254120251, expDate: '01/30', cvc: '666' }
   ]);
 
   const [BBBCards, setBBBCards] = useState([
-    { store: 'BBB', cardNumber: 6191139158252970, remainBalance: 21.3 },
-    { store: 'BBB', cardNumber: 6191139158252977, remainBalance: 121.3 }
+    { store: 'BBBCards', cardNumber: 6191139158252970, remainBalance: 21.3 },
+    { store: 'BBBCards', cardNumber: 6191139158252977, remainBalance: 121.3 }
   ]);
 
   const [containerStoreCards, setContainerStoreCards] = useState([
-    { store: 'Container Store', cardNumber: 6006491645022580921, remainBalance: 186.41 }
+    { store: 'containerStoreCards', cardNumber: 6006491645022580921, remainBalance: 186.41 }
   ]);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const addNewCard = (newCardInfo) => {
+    //need to find if newCardInfo exists yet
+    console.log(newCardInfo)
+  }
+
 
 
   return (
@@ -44,6 +50,7 @@ const AllCards = () => {
         <AddNewCardModal
           open={isOpen}
           onClose={() => setIsOpen(false)}
+          addNewCard={addNewCard}
         />
 
       </div>
@@ -66,9 +73,9 @@ const AllCards = () => {
       <div className={"cardRow"}>
         <div className={'AllCards__cardColumn'}>
           <div className={'storeName'}>
-            {masterCards.length > 0 ? <label><b>MasterCard</b></label> : null}
+            {visaCards.length > 0 ? <label><b>VisaCards</b></label> : null}
           </div>
-          {masterCards.map(card => {
+          {visaCards.map(card => {
             return (
               <CardPreview
                 key={`{${card.store}${card.cardNumber}}`}
