@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cards from 'react-credit-cards';
 import ReactDom from 'react-dom';
+import classnames from 'classnames'
 import './AddNewCardModal.scss'
 
 const AddNewCardModal = ({ open, onClose }) => {
@@ -12,8 +13,16 @@ const AddNewCardModal = ({ open, onClose }) => {
     balance: 0
   });
 
-  const [addButtonDisabled, setAddButtonDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
+  useEffect(() => {
+    if (Object.values(data).some(inputField => inputField.length === 0)) {
+      setDisabled(true);
+    }
+    else {
+      setDisabled(false);
+    }
+  }, [data]);
 
 
   if (!open) {
@@ -66,13 +75,14 @@ const AddNewCardModal = ({ open, onClose }) => {
           </form>
 
           <button
-            className='AddNewCardModal__submitButton'
+            className={classnames('AddNewCardModal__submitButton')}
+            disabled={disabled}
             onClick={e => handleInputChange(e)}>
             Add Card
         </button>
 
           <button
-            className='AddNewCardModal__closeButton'
+            className={'AddNewCardModal__closeButton'}
             onClick={onClose}>
             Close
         </button>
