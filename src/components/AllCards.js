@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
+import { v4 as uuidv4 } from 'uuid';
 
 import CardPreview from './CardPreview'
 import AddNewCardModal from './AddNewCardModal'
 import './AllCards.scss';
 
 const AllCards = () => {
-  const [allCardsNames, setAllCardsNames] = useState(['costcoCards', 'visaCards', 'BBBCards', 'containerStoreCards']);
+  const LOCAL_STORAGE_KEY_DATA = 'giftCardApp.cards';
 
+  const [allCards, setAllCards] = useState([]);
+
+  // does the array of card names need to be in a useEffect too?
+  // const retrieveCardNamesOnly = (arrayOfCardObjects) => {
+  //   const result = [];
+  //   arrayOfCardObjects.forEach(card => result.push(card.storeName));
+  // }
+
+  // const [allCardsNames, setAllCardsNames] = useState(retrieveCardNamesOnly(allCards));
 
   const [costcoCards, setCostCoCards] = useState([
     { store: 'costcoCards', cardNumber: 6179923830148194, remainBalance: 100.28 }
@@ -26,14 +36,31 @@ const AllCards = () => {
     { store: 'containerStoreCards', cardNumber: 6006491645022580921, remainBalance: 186.41 }
   ]);
 
+  useEffect(() => {
+    const storedCards = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_DATA));
+    setAllCards(storedCards);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY_DATA, JSON.stringify(allCards))
+  }, [allCards]);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const addNewCard = (newCardInfo) => {
-    //need to find if newCardInfo exists yet
-    console.log(newCardInfo)
+    if (allCards.length > 0) {
+      const checkExisting = allCards.filter(card => card.number === newCardInfo.number)
+      if (checkExisting.length > 0) {
+        console.log('it exists, display error')
+      }
+      else {
+        setAllCards([...allCards, ...[newCardInfo]]);
+      }
+    }
+    else {
+      setAllCards([newCardInfo]);
+    }
   }
-
-
 
   return (
     <div className='AllCards'>
@@ -52,8 +79,9 @@ const AllCards = () => {
           onClose={() => setIsOpen(false)}
           addNewCard={addNewCard}
         />
-
       </div>
+
+
       <div className={"cardRow"}>
         <div className={'AllCards__cardColumn'}>
           <div className={'storeName'}>
@@ -118,7 +146,9 @@ const AllCards = () => {
         </div >
       </div>
 
-    </div>
+
+
+    </div >
   );
 }
 

@@ -44,6 +44,12 @@
       color: rgb(0, 0, 0);
       outline: none;
       font-weight: 300;
+
+      // &::before {
+      //   content: '$';
+      //   padding: 0 5px;
+      //   text-align: center;
+      // }
     }
   }
 

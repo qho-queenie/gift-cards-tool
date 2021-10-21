@@ -10,7 +10,8 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
     expiry: '',
     name: '',
     number: '',
-    balance: 0
+    remainBalance: '',
+    storeName: ''
   };
 
   const [data, setData] = useState(initialDataState);
@@ -29,7 +30,6 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
 
 
   useEffect(() => {
-    console.log(data)
     if (Object.values(data).some(inputField => inputField.length === 0)) {
       setDisabled(true);
     }
@@ -59,6 +59,12 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
     }
   }
 
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2
+  });
+
   return ReactDom.createPortal(
     <React.Fragment>
       <div className='AddNewCardModal__overlay'>
@@ -69,6 +75,7 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
             focus={data.focus}
             name={data.name}
             number={data.number}
+            storeName={data.storeName}
           />
 
           <form className={'AddNewCardModal__form'}>
@@ -92,29 +99,44 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
             <input
               type='text'
               name='name'
-              placeholder='Store Name'
+              placeholder='Cardholder Name'
               autoComplete='on'
               value={data.name}
               onChange={handleInputChange}
             />
-
+            <input
+              type='text'
+              name='storeName'
+              placeholder='Store Name'
+              autoComplete='on'
+              value={data.storeName}
+              onChange={handleInputChange}
+            />
             <input
               type="number"
-              name="cvc"
-              placeholder="CVC"
+              name='cvc'
+              placeholder='CVC'
               value={data.cvc}
+              min={'100'}
+              max={"999"}
               onChange={handleInputChange}
             />
             <input
-              type="date"
-              name="expiry"
+              type='date'
+              name='expiry'
               value={data.expiry}
-              placeholder="Expire Date"
+              placeholder='Expire Date'
               onChange={handleInputChange}
             />
-
+            <input
+              className={'currencyInput'}
+              type="number"
+              name="remainBalance"
+              value={data.remainBalance}
+              placeholder="Remaining Balance"
+              onChange={handleInputChange}
+            />
           </form>
-
           <button
             className={classnames('AddNewCardModal__submitButton')}
             disabled={disabled}
