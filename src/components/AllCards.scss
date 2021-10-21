@@ -2,21 +2,44 @@
   text-align: center;
   background-color: #282c34;
   min-height: 100vh;
-
   font-size: calc(10px + 2vmin);
   color: white;
 
-  .cardRow {
-    display: inline-block;
+  &__content {
+    display: flex;
     flex-direction: row;
-    vertical-align: top;
-    width: 20%;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    margin-top: 50px;
 
-    &__cardColumn {
-      display: flex;
-      justify-content: space-between;
-      flex-basis: auto;
-      flex-wrap: wrap;
+    .cardColumn {
+      background-color: slategray;
+      min-width: 400px;
+      margin-left: 5%;
+      max-height: 700px;
+      overflow-y: scroll;
+      border-radius: 10px;
+    }
+
+    .cardBreakdown {
+      background-color: slategray;
+      min-width: 800px;
+      margin-right: 5%;
+      max-height: 700px;
+      overflow-y: scroll;
+      margin-left: 10px;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0.5);
+      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
     }
   }
 }

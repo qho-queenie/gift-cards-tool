@@ -23,12 +23,12 @@ const CardPreview = (cardInfo) => {
         cvc={cvc ? cvc : '111'}
       />
 
-      <div className={'CardPreview__cardInfo'}>
+      {/* <div className={'CardPreview__cardInfo'}>
         {remainBalance ?
           <p>Remaining Balance {formatter.format(remainBalance)}</p>
           : <p>Need Remaining Balance</p>
         }
-      </div>
+      </div> */}
     </div>
   )
 

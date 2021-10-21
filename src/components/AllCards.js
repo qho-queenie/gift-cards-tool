@@ -12,28 +12,16 @@ const AllCards = () => {
   const [allCards, setAllCards] = useState([]);
 
   // does the array of card names need to be in a useEffect too?
-  // const retrieveCardNamesOnly = (arrayOfCardObjects) => {
-  //   const result = [];
-  //   arrayOfCardObjects.forEach(card => result.push(card.storeName));
-  // }
+  const retrieveCardNamesOnly = (arrayOfCardObjects) => {
+    const result = [];
+    arrayOfCardObjects.forEach(card => result.push(card.storeName));
+  }
 
-  // const [allCardsNames, setAllCardsNames] = useState(retrieveCardNamesOnly(allCards));
-
-  const [costcoCards, setCostCoCards] = useState([
-    { store: 'costcoCards', cardNumber: 6179923830148194, remainBalance: 100.28 }
-  ]);
-
-  const [visaCards, setVisaCards] = useState([
-    { store: 'visaCards', cardNumber: 5113320254120251, expDate: '01/30', cvc: '666' }
-  ]);
+  const [allCardsNames, setAllCardsNames] = useState(retrieveCardNamesOnly(allCards));
 
   const [BBBCards, setBBBCards] = useState([
     { store: 'BBBCards', cardNumber: 6191139158252970, remainBalance: 21.3 },
     { store: 'BBBCards', cardNumber: 6191139158252977, remainBalance: 121.3 }
-  ]);
-
-  const [containerStoreCards, setContainerStoreCards] = useState([
-    { store: 'containerStoreCards', cardNumber: 6006491645022580921, remainBalance: 186.41 }
   ]);
 
   useEffect(() => {
@@ -81,44 +69,8 @@ const AllCards = () => {
         />
       </div>
 
-
-      <div className={"cardRow"}>
-        <div className={'AllCards__cardColumn'}>
-          <div className={'storeName'}>
-            {costcoCards.length > 0 ? <label><b>Costco</b></label> : null}
-          </div>
-          {costcoCards.map(card => {
-            return (
-              <CardPreview
-                key={`{${card.store}${card.cardNumber}}`}
-                card={card}
-              />
-            )
-          })}
-        </div>
-      </div>
-
-      <div className={"cardRow"}>
-        <div className={'AllCards__cardColumn'}>
-          <div className={'storeName'}>
-            {visaCards.length > 0 ? <label><b>VisaCards</b></label> : null}
-          </div>
-          {visaCards.map(card => {
-            return (
-              <CardPreview
-                key={`{${card.store}${card.cardNumber}}`}
-                card={card}
-              />
-            )
-          })}
-        </div >
-      </div>
-
-      <div className={"cardRow"}>
-        <div className={'AllCards__cardColumn'}>
-          <div className={'storeName'}>
-            {BBBCards.length > 0 ? <label><b>BBB</b></label> : null}
-          </div>
+      <div className='AllCards__content'>
+        <div className={"cardColumn"}>
           {BBBCards.map(card => {
             return (
               <CardPreview
@@ -127,28 +79,14 @@ const AllCards = () => {
               />
             )
           })}
-        </div >
+        </div>
+
+        <div className={'cardBreakdown'}>
+          <p>lorem seekashjdf </p>
+        </div>
       </div>
 
-      <div className={"cardRow"}>
-        <div className={'AllCards__cardColumn'}>
-          <div className={'storeName'}>
-            {containerStoreCards.length > 0 ? <label><b>Container Store</b></label> : null}
-          </div>
-          {containerStoreCards.map(card => {
-            return (
-              <CardPreview
-                key={`{${card.store}${card.cardNumber}}`}
-                card={card}
-              />
-            )
-          })}
-        </div >
-      </div>
-
-
-
-    </div >
+    </div>
   );
 }
 
