@@ -11,24 +11,26 @@
     justify-content: space-evenly;
     align-items: flex-start;
     margin-top: 50px;
+    gap: 10px;
 
-    .cardColumn {
+    .cardColumn,
+    .breakdownColumn {
       background-color: slategray;
-      min-width: 400px;
-      margin-left: 5%;
       max-height: 700px;
       overflow-y: scroll;
       border-radius: 10px;
+      flex-grow: 1;
+      min-height: 730px;
     }
 
-    .cardBreakdown {
-      background-color: slategray;
-      min-width: 800px;
-      margin-right: 5%;
-      max-height: 700px;
-      overflow-y: scroll;
-      margin-left: 10px;
-      border-radius: 10px;
+    .cardColumn {
+      min-width: 345px;
+      flex-grow: 0.1;
+    }
+
+    .breakdownColumn {
+      min-width: 40%; // needs a solid px after implementing content of it
+      flex-grow: 0.7;
     }
 
     ::-webkit-scrollbar {

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 
-import CardPreview from './CardPreview'
-import AddNewCardModal from './AddNewCardModal'
+import CardPreview from './CardPreview';
+import AddNewCardModal from './AddNewCardModal';
+import CardBreakdown from './CardBreakdown';
 import './AllCards.scss';
 
 const AllCards = () => {
@@ -53,7 +54,7 @@ const AllCards = () => {
   return (
     <div className='AllCards'>
       <div className='AllCards__summary'>
-        <h3><b>Number of Cards: Total Remaining Balance: </b></h3>
+        <h3><b>Number of Cards: { } </b></h3>
         <button
           type='button'
           className='AllCards__addNewCard'
@@ -71,19 +72,21 @@ const AllCards = () => {
 
       <div className='AllCards__content'>
         <div className={"cardColumn"}>
-          {BBBCards.map(card => {
+          {BBBCards.map((card) => {
             return (
               <CardPreview
-                key={`{${card.store}${card.cardNumber}}`}
+                key={`${card.number}`}
                 card={card}
               />
             )
           })}
         </div>
 
-        <div className={'cardBreakdown'}>
-          <p>lorem seekashjdf </p>
+        <div className='breakdownColumn'>
+          <CardBreakdown />
         </div>
+
+
       </div>
 
     </div>

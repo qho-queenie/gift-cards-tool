@@ -1,8 +1,13 @@
 .CardPreview {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 292px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
   transition: 0.3s;
-  margin: 1rem 0.25em;
+  // margin: 1rem 0.25em;
+  // margin-left: auto;
+  // margin-right: auto;
+  margin: 1rem auto 0.25em auto;
   flex: 0 1 15%;
+  border-radius: 15px;
 
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
