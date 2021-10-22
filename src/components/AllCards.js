@@ -14,7 +14,6 @@ const AllCards = () => {
 
   const [activeViewingCard, setActiveViewingCard] = useState();
 
-
   // does the array of card names need to be in a useEffect too?
   const retrieveCardNamesOnly = (arrayOfCardObjects) => {
     const result = [];
@@ -31,25 +30,21 @@ const AllCards = () => {
   useEffect(() => {
     const storedCards = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_DATA));
     setAllCards(storedCards);
-
+    if (storedCards.length > 0) {
+      setActiveViewingCard(storedCards[0]);
+    } else {
+      setActiveViewingCard(-1);
+    }
   }, []);
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY_DATA, JSON.stringify(allCards));
     if (allCards.length > 0) {
       setActiveViewingCard(allCards[0]);
-    }
-    else {
-      console.log('no cards to display')
+    } else {
       setActiveViewingCard(-1);
     }
   }, [allCards]);
-
-  useEffect(() => {
-
-  }, [activeViewingCard]);
-
-
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -63,7 +58,7 @@ const AllCards = () => {
       }
     }
     else {
-      console.log([newCardInfo], 'no cards yet,',)
+      // console.log([newCardInfo], 'no cards yet,',)
       setAllCards([newCardInfo]);
     }
   }

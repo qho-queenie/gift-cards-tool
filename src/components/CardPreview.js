@@ -8,7 +8,6 @@ import 'react-credit-cards/lib/styles.scss';
 import './CardPreview.scss';
 
 const CardPreview = ({ card, selectCard, deleteCard }) => {
-
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
