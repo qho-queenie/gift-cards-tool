@@ -4,8 +4,7 @@ import 'react-credit-cards/lib/styles.scss';
 
 import './CardPreview.scss';
 
-const CardPreview = (cardInfo) => {
-  const { store, cardNumber, expDate, cvc, remainBalance } = cardInfo.card;
+const CardPreview = ({ card, selectCard }) => {
 
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -14,25 +13,24 @@ const CardPreview = (cardInfo) => {
   });
 
   return (
-    // generate a lil card
-    <div className={'CardPreview'}>
-      <Cards
-        number={cardNumber}
-        expiry={expDate ? expDate : '01/99'}
-        name={store}
-        cvc={cvc ? cvc : '111'}
-      />
+    <React.Fragment>
+      <div className={'CardPreview'}
+        onClick={() => selectCard(card)}
+      >
+        <Cards
+          number={card.number}
+          expiry={card.expiry}
+          name={card.name}
+          cvc={card.cvc}
+        />
 
-      {/* <div className={'CardPreview__cardInfo'}>
-        {remainBalance ?
-          <p>Remaining Balance {formatter.format(remainBalance)}</p>
-          : <p>Need Remaining Balance</p>
-        }
-      </div> */}
-    </div>
+      </div>
+
+      <div>
+        <p>Balance: {card.remainBalance ? formatter.format(card.remainBalance) : null}</p>
+      </div>
+    </React.Fragment>
   )
-
-
 }
 
 export default CardPreview;

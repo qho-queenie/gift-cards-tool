@@ -1,9 +1,13 @@
 import React from 'react';
 import './CardBreakdown.scss';
 
-const CardBreakdown = () => {
+const CardBreakdown = ({ card }) => {
+  console.log(card)
   return (
-    <h1>i am cardbreakdown</h1>
+    <div className={"CardBreakdown"}>
+      <h1>i am cardbreakdown</h1>
+      {/* <h3>{card[0].name}</h3> */}
+    </div>
   )
 }
 

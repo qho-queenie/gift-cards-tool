@@ -54,8 +54,10 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
 
   const submitNewCard = () => {
     if (!disabled) {
+      console.log(data, 'data before adding')
       addNewCard(data);
       setData({ ...initialDataState })
+      onClose();
     }
   }
 

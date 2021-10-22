@@ -12,6 +12,9 @@ const AllCards = () => {
 
   const [allCards, setAllCards] = useState([]);
 
+  const [activeViewingCard, setActiveViewingCard] = useState();
+
+
   // does the array of card names need to be in a useEffect too?
   const retrieveCardNamesOnly = (arrayOfCardObjects) => {
     const result = [];
@@ -28,11 +31,25 @@ const AllCards = () => {
   useEffect(() => {
     const storedCards = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_DATA));
     setAllCards(storedCards);
+
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY_DATA, JSON.stringify(allCards))
+    localStorage.setItem(LOCAL_STORAGE_KEY_DATA, JSON.stringify(allCards));
+    if (allCards.length > 0) {
+      setActiveViewingCard(allCards[0]);
+    }
+    else {
+      console.log('no cards to display')
+      setActiveViewingCard(-1);
+    }
   }, [allCards]);
+
+  useEffect(() => {
+
+  }, [activeViewingCard]);
+
+
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,16 +57,21 @@ const AllCards = () => {
     if (allCards.length > 0) {
       const checkExisting = allCards.filter(card => card.number === newCardInfo.number)
       if (checkExisting.length > 0) {
-        console.log('it exists, display error')
       }
       else {
         setAllCards([...allCards, ...[newCardInfo]]);
       }
     }
     else {
+      console.log([newCardInfo], 'no cards yet,',)
       setAllCards([newCardInfo]);
     }
   }
+
+  // const selectCard = (selectedCardNumber) => {
+  //   console.log(selectedCardNumber, 'selectedCardNumber')
+  //   setActiveViewingCard(selectedCardNumber);
+  // }
 
   return (
     <div className='AllCards'>
@@ -72,23 +94,23 @@ const AllCards = () => {
 
       <div className='AllCards__content'>
         <div className={"cardColumn"}>
-          {BBBCards.map((card) => {
+          {allCards.map((card) => {
             return (
               <CardPreview
                 key={`${card.number}`}
                 card={card}
+                selectCard={(selectedCard) => setActiveViewingCard(selectedCard)}
               />
             )
           })}
         </div>
 
         <div className='breakdownColumn'>
-          <CardBreakdown />
+          <CardBreakdown
+            card={activeViewingCard}
+          />
         </div>
-
-
       </div>
-
     </div>
   );
 }
