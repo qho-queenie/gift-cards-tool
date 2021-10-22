@@ -68,11 +68,11 @@ const AllCards = () => {
     }
   }
 
-  // const selectCard = (selectedCardNumber) => {
-  //   console.log(selectedCardNumber, 'selectedCardNumber')
-  //   setActiveViewingCard(selectedCardNumber);
-  // }
-
+  const removeCard = (card) => {
+    const remainCards = allCards.filter(({ number }) => number !== card.number);
+    // console.log('why didnt hav eit separate 1 card left to iterate?')
+    setAllCards([...remainCards]);
+  }
   return (
     <div className='AllCards'>
       <div className='AllCards__summary'>
@@ -100,6 +100,7 @@ const AllCards = () => {
                 key={`${card.number}`}
                 card={card}
                 selectCard={(selectedCard) => setActiveViewingCard(selectedCard)}
+                deleteCard={() => removeCard(card)}
               />
             )
           })}
