@@ -5,44 +5,55 @@
   font-size: calc(10px + 2vmin);
   color: white;
 
+  .generalButton {
+    color: #ffff;
+    background-color: #009879;
+    border-radius: 4px;
+    text-align: center;
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 20px;
+
+    &:hover {
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .addNewCardButton {
+    margin: 25px auto 10px auto;
+  }
+
   &__content {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
     gap: 10px;
-    margin: 50px 20px 0 20px;
+    margin: 15px 20px 0 20px;
 
-    .cardColumn,
+    .imageColumn,
     .breakdownColumn {
       background-color: slategray;
+      height: 100vh;
       max-height: 700px;
       overflow-y: scroll;
       border-radius: 10px;
       flex-grow: 1;
-      min-height: 730px;
     }
 
-    .cardColumn {
-      min-width: 345px;
+    .imageColumn {
+      min-width: 347px;
       flex-grow: 0.1;
 
-      &__getSummaryButton {
-        color: #ffff;
-        background-color: #009879;
-        margin: 40px 0 40px 0;
-        border-radius: 4px;
-        text-align: center;
-        width: 200px;
-        height: 50px;
-        cursor: pointer;
+      .getSummaryButton {
+        margin: 30px;
       }
     }
 
     .breakdownColumn {
       flex-grow: 0.7;
-      min-width: 797px;
-      width: 80%;
+      width: 40vw;
     }
 
     ::-webkit-scrollbar {

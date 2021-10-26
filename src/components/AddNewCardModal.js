@@ -15,7 +15,6 @@ const AddNewCardModal = ({ open, onCloseModal, addNewCard }) => {
   };
 
   const [data, setData] = useState(initialDataState);
-
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
@@ -26,7 +25,6 @@ const AddNewCardModal = ({ open, onCloseModal, addNewCard }) => {
       setDisabled(false);
     }
   }, [data]);
-
 
   // all hooks must be declared before this !open condition, since hooks cant be called conditionally
   if (!open) {

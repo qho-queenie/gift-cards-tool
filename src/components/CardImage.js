@@ -1,13 +1,10 @@
 import React from 'react';
 import Cards from 'react-credit-cards';
-
 import { RiDeleteBin5Line } from "react-icons/ri";
-
 import 'react-credit-cards/lib/styles.scss';
+import './CardImage.scss';
 
-import './CardPreview.scss';
-
-const CardPreview = ({ card, selectCard, deleteCard }) => {
+const CardImage = ({ card, selectCard, deleteCard }) => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -16,7 +13,7 @@ const CardPreview = ({ card, selectCard, deleteCard }) => {
 
   return (
     <React.Fragment>
-      <div className={'CardPreview'}
+      <div className={'CardImage'}
         onClick={() => selectCard(card)}
       >
         <Cards
@@ -27,22 +24,21 @@ const CardPreview = ({ card, selectCard, deleteCard }) => {
         />
 
       </div>
-
       <div>
         <button
-          className={'CardPreview__deleteCardButton'}
+          className={'CardImage__deleteCardButton'}
           onClick={() => deleteCard(card)}
         >
           <RiDeleteBin5Line />
         </button>
         <p
-          className={'CardPreview__remainBalance'}
+          className={'CardImage__remainBalance'}
         >
-          Balance: {card.remainBalance ? formatter.format(card.remainBalance) : null}
+          Balance: {formatter.format(card.remainBalance)}
         </p>
       </div>
     </React.Fragment>
   )
 }
 
-export default CardPreview;
+export default CardImage;

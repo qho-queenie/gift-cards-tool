@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 
-import CardPreview from './CardPreview';
+import CardImage from './CardImage';
 import AddNewCardModal from './AddNewCardModal';
 import CardBreakdown from './CardBreakdown';
 
@@ -31,8 +31,6 @@ const AllCards = () => {
     setActiveViewingCard(-1);
   }, [allCards]);
 
-
-
   const addNewCard = (newCardInfo) => {
     if (allCards.length > 0) {
       const checkExisting = allCards.filter(card => card.number === newCardInfo.number)
@@ -55,34 +53,28 @@ const AllCards = () => {
   return (
     <div className='AllCards'>
       <button
+        className={classnames('generalButton', 'addNewCardButton')}
         type='button'
-        className='AllCards__addNewCard'
         onClick={() => setNewCardModalOpen(true)}
       >
         Add a New Card
       </button>
-
       <AddNewCardModal
         open={newCardModalOpen}
         onCloseModal={() => setNewCardModalOpen(false)}
         addNewCard={addNewCard}
       />
-
-
       <div className='AllCards__content'>
-        <div className={"cardColumn"}>
-          <div className={'cardsSummary'}>
-            <button
-              className={'cardColumn__getSummaryButton'}
-              onClick={() => setActiveViewingCard(-1)}
-            >
-              Summary
-            </button>
-          </div>
-
+        <div className={"imageColumn"}>
+          <button
+            className={classnames('generalButton', 'getSummaryButton')}
+            onClick={() => setActiveViewingCard(-1)}
+          >
+            <b>Summary</b>
+          </button>
           {allCards.map((card) => {
             return (
-              <CardPreview
+              <CardImage
                 key={`${card.number}`}
                 card={card}
                 selectCard={(selectedCard) => setActiveViewingCard(selectedCard)}
@@ -91,7 +83,6 @@ const AllCards = () => {
             )
           })}
         </div>
-
         <div className='breakdownColumn'>
           <CardBreakdown
             card={activeViewingCard}
