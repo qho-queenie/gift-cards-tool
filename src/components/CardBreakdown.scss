@@ -1,2 +1,31 @@
 .CardBreakdown {
+  &__transactionTable {
+    text-align: center;
+    background-color: #009879;
+    color: #ffffff;
+    border-collapse: collapse;
+    margin: 25px auto;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 763px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 85%;
+  }
+
+  thead tr {
+    background-color: #009879;
+    color: #ffffff;
+  }
+
+  th,
+  td {
+    padding: 12px 15px;
+  }
+
+  tbody tr {
+    color: #000;
+    font-size: 15px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #dddddd;
+  }
 }

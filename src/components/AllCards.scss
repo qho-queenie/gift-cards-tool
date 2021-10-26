@@ -10,8 +10,8 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
-    margin-top: 50px;
     gap: 10px;
+    margin: 50px 20px 0 20px;
 
     .cardColumn,
     .breakdownColumn {
@@ -26,11 +26,23 @@
     .cardColumn {
       min-width: 345px;
       flex-grow: 0.1;
+
+      &__getSummaryButton {
+        color: #ffff;
+        background-color: #009879;
+        margin: 40px 0 40px 0;
+        border-radius: 4px;
+        text-align: center;
+        width: 200px;
+        height: 50px;
+        cursor: pointer;
+      }
     }
 
     .breakdownColumn {
-      min-width: 40%; // needs a solid px after implementing content of it
       flex-grow: 0.7;
+      min-width: 797px;
+      width: 80%;
     }
 
     ::-webkit-scrollbar {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Cards from 'react-credit-cards';
 import ReactDom from 'react-dom';
 import classnames from 'classnames'
+import Cards from 'react-credit-cards';
 import './AddNewCardModal.scss'
 
-const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
+const AddNewCardModal = ({ open, onCloseModal, addNewCard }) => {
   const initialDataState = {
     cvc: '',
     expiry: '',
@@ -18,17 +18,6 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
 
   const [disabled, setDisabled] = useState(false);
 
-  // const cardName = allCardsNames.map((companyName, index) => {
-  //   return (
-  //     <option
-  //       key={`${companyName}${index}`}
-  //     >
-  //       {companyName}
-  //     </option>
-  //   )
-  // })
-
-
   useEffect(() => {
     if (Object.values(data).some(inputField => inputField.length === 0)) {
       setDisabled(true);
@@ -39,6 +28,7 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
   }, [data]);
 
 
+  // all hooks must be declared before this !open condition, since hooks cant be called conditionally
   if (!open) {
     return null
   }
@@ -49,23 +39,14 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
 
   const closeModal = () => {
     setData({ ...initialDataState })
-    onClose();
+    onCloseModal();
   }
 
   const submitNewCard = () => {
-    if (!disabled) {
-      console.log(data, 'data before adding')
-      addNewCard(data);
-      setData({ ...initialDataState })
-      onClose();
-    }
+    addNewCard(data);
+    setData({ ...initialDataState })
+    onCloseModal();
   }
-
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 2
-  });
 
   return ReactDom.createPortal(
     <React.Fragment>
@@ -74,12 +55,10 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
           <Cards className='AddNewCardModal__liveCardDisplay'
             cvc={data.cvc}
             expiry={data.expiry}
-            focus={data.focus}
             name={data.name}
             number={data.number}
             storeName={data.storeName}
           />
-
           <form className={'AddNewCardModal__form'}>
             <input
               type="number"
@@ -88,16 +67,6 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
               value={data.number}
               onChange={handleInputChange}
             />
-
-            {/* <select>
-              <option
-                value='none'
-                selected="true"
-                name="name"
-              />
-              {cardName}
-            </select> */}
-
             <input
               type='text'
               name='name'
@@ -130,14 +99,17 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
               placeholder='Expire Date'
               onChange={handleInputChange}
             />
-            <input
-              className={'currencyInput'}
-              type="number"
-              name="remainBalance"
-              value={data.remainBalance}
-              placeholder="Remaining Balance"
-              onChange={handleInputChange}
-            />
+
+            <div className={'currencyInput'}>
+              <span>$</span>
+              <input
+                type="number"
+                name="remainBalance"
+                value={data.remainBalance}
+                placeholder="Remaining Balance"
+                onChange={handleInputChange}
+              />
+            </div>
           </form>
           <button
             className={classnames('AddNewCardModal__submitButton')}
@@ -145,7 +117,6 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
             onClick={submitNewCard}>
             Add Card
         </button>
-
           <button
             className={'AddNewCardModal__closeButton'}
             onClick={closeModal}
@@ -158,6 +129,5 @@ const AddNewCardModal = ({ open, onClose, allCardsNames, addNewCard }) => {
     document.getElementById('portal')
   )
 }
-
 
 export default AddNewCardModal;
