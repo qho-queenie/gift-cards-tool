@@ -4,7 +4,7 @@ import { IoIosAddCircleOutline } from "react-icons/io";
 import { v4 as uuidv4 } from 'uuid';
 import './CardBreakdown.scss';
 
-const CardBreakdown = ({ card, addTransaction }) => {
+const CardBreakdown = ({ card, addTransaction, deleteTransaction }) => {
   const { trans } = card;
   const initialState = {
     date: '',
@@ -47,7 +47,6 @@ const CardBreakdown = ({ card, addTransaction }) => {
     setNewEntryData(initialState)
   };
 
-
   return (
     <div className={"CardBreakdown"}>
       <h1>i am cardbreakdown</h1>
@@ -62,7 +61,6 @@ const CardBreakdown = ({ card, addTransaction }) => {
           </tr>
         </thead>
         <tbody>
-
           {trans && trans.map((item) => {
             return (
               <tr
@@ -70,19 +68,21 @@ const CardBreakdown = ({ card, addTransaction }) => {
               >
                 <td
                   className={'CardBreakdown__deleteCardButton'}
-
                 >
-                  <button>
-                    <RiDeleteBin5Line />
+                  <button
+                  >
+                    <RiDeleteBin5Line
+                      id={item.id}
+                      onClick={(e) => deleteTransaction(card, e.target.id)}
+                    />
                   </button>
                 </td>
                 <td>{item.date}</td>
                 <td>{item.merchant}</td>
-                <td>{item.amount}</td>
+                <td>{formatter.format(parseInt(item.amount))}</td>
               </tr>
             )
           })}
-
         </tbody>
       </table>
 

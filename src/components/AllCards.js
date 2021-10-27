@@ -21,6 +21,7 @@ const AllCards = () => {
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY_DATA, JSON.stringify(allCards));
     setActiveViewingCard(-1);
+    console.log(allCards, 'all in useEffect')
   }, [allCards]);
 
   const addNewCard = (newCardInfo) => {
@@ -47,6 +48,17 @@ const AllCards = () => {
       }
     }
     setAllCards([...allCards])
+  }
+
+  const deleteTransaction = (card, idToDelete) => {
+    const transToRemove = card.trans.find(({ id }) => id === idToDelete);
+    const cardToEdit = allCards.find(({ number }) => number === card.number);
+    //card and trans-to-delete exist
+    if (cardToEdit && transToRemove) {
+      const remainTrans = card.trans.filter(({ id }) => id !== idToDelete);
+      cardToEdit['trans'] = remainTrans;
+      setAllCards([...allCards])
+    }
   }
 
   const removeCard = (card) => {
@@ -91,6 +103,7 @@ const AllCards = () => {
           <CardBreakdown
             card={activeViewingCard}
             addTransaction={(card, trans) => addTransaction(card, trans)}
+            deleteTransaction={(card, id) => deleteTransaction(card, id)}
           />
         </div>
       </div>
