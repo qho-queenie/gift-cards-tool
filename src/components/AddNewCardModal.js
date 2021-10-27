@@ -28,7 +28,7 @@ const AddNewCardModal = ({ open, onCloseModal, addNewCard }) => {
 
   // all hooks must be declared before this !open condition, since hooks cant be called conditionally
   if (!open) {
-    return null
+    return null;
   }
 
   const handleInputChange = (e) => {

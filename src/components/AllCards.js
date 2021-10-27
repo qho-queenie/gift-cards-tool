@@ -13,14 +13,6 @@ const AllCards = () => {
   const [activeViewingCard, setActiveViewingCard] = useState(-1);
   const [newCardModalOpen, setNewCardModalOpen] = useState(false);
 
-  // does the array of card names need to be in a useEffect too?
-  const retrieveCardNamesOnly = (arrayOfCardObjects) => {
-    const result = [];
-    arrayOfCardObjects.forEach(card => result.push(card.storeName));
-  }
-
-  const [allCardsNames, setAllCardsNames] = useState(retrieveCardNamesOnly(allCards));
-
   useEffect(() => {
     const storedCards = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_DATA));
     setAllCards(storedCards);
@@ -43,6 +35,18 @@ const AllCards = () => {
     else {
       setAllCards([newCardInfo]);
     }
+  }
+
+  const addTransaction = (card, entry) => {
+    const addToCard = allCards.find(({ number }) => number === card.number);
+    if (addToCard) {
+      if (addToCard['trans']) {
+        addToCard['trans'].push(entry);
+      } else {
+        addToCard['trans'] = [entry];
+      }
+    }
+    setAllCards([...allCards])
   }
 
   const removeCard = (card) => {
@@ -86,6 +90,7 @@ const AllCards = () => {
         <div className='breakdownColumn'>
           <CardBreakdown
             card={activeViewingCard}
+            addTransaction={(card, trans) => addTransaction(card, trans)}
           />
         </div>
       </div>

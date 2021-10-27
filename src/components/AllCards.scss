@@ -26,8 +26,9 @@
 
   &__content {
     display: flex;
+    width: 100%;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: flex-start;
     gap: 10px;
     margin: 15px 20px 0 20px;
@@ -39,7 +40,6 @@
       max-height: 700px;
       overflow-y: scroll;
       border-radius: 10px;
-      flex-grow: 1;
     }
 
     .imageColumn {
@@ -52,8 +52,9 @@
     }
 
     .breakdownColumn {
-      flex-grow: 0.7;
-      width: 40vw;
+      flex-grow: 0.5;
+      width: 70%;
+      min-width: 645px;
     }
 
     ::-webkit-scrollbar {
