@@ -20,21 +20,34 @@ const AllCards = () => {
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY_DATA, JSON.stringify(allCards));
-    setActiveViewingCard(-1);
-    console.log(allCards, 'all in useEffect')
+    // if (allCards.length === 0) {
+    //   console.log('does tis every happen')
+    //   setActiveViewingCard(-1);
+    // }
   }, [allCards]);
 
   const addNewCard = (newCardInfo) => {
     if (allCards.length > 0) {
-      const checkExisting = allCards.filter(card => card.number === newCardInfo.number)
-      if (checkExisting.length > 0) {
+      const checkExisting = allCards.find(({ number }) => number === newCardInfo.number)
+      if (checkExisting) {
+        console.log('need validation, the card exists already');
       }
       else {
         setAllCards([...allCards, ...[newCardInfo]]);
       }
     }
     else {
+      // 1st card to be added
       setAllCards([newCardInfo]);
+    }
+  }
+
+  const removeCard = (card) => {
+    const remainCards = allCards.filter(({ number }) => number !== card.number);
+    setAllCards([...remainCards]);
+    // if i deleted the card i am viewing, it should go back to 'summary'
+    if (activeViewingCard.number === card.number) {
+      setActiveViewingCard(-1)
     }
   }
 
@@ -48,6 +61,7 @@ const AllCards = () => {
       }
     }
     setAllCards([...allCards])
+    console.log(allCards.length)
   }
 
   const deleteTransaction = (card, idToDelete) => {
@@ -59,11 +73,6 @@ const AllCards = () => {
       cardToEdit['trans'] = remainTrans;
       setAllCards([...allCards])
     }
-  }
-
-  const removeCard = (card) => {
-    const remainCards = allCards.filter(({ number }) => number !== card.number);
-    setAllCards([...remainCards]);
   }
 
   return (
