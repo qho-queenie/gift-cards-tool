@@ -1,3 +1,11 @@
+# Manage Giftcards
+
+Functionalities:
+
+- add and remove giftcards
+- each card has its own table to add and display transactions, also tabulating remaining balance, and sort by columns
+- summary page tallying up all giftcards
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
